@@ -1,1 +1,16 @@
+# Build outputs
+*.exe
+*.out
 smart_parking_server
+smart_parking_server.exe
+*.o
+*.obj
+
+# Logs
+*.log
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
