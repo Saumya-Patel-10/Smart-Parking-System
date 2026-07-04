@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Parking — Software Simulation</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="deck">
+
+    <header class="deck__header">
+      <div class="deck__badge">C++ / cpp-httplib</div>
+      <h1>Smart Parking <span>Simulation</span></h1>
+      <p class="deck__sub">Software re-implementation of the original 74147 encoder / 7442 decoder / LM339 comparator circuit — same allocation logic, no hardware required.</p>
+    </header>
+
+    <section class="board" aria-label="Parking slots">
+      <div class="board__meter">
+        <div class="meter">
+          <span class="meter__label">AVAIL</span>
+          <span id="availValue" class="meter__value">–</span>
+        </div>
+        <div class="meter meter--status">
+          <span class="meter__label">STATUS</span>
+          <span id="fullValue" class="meter__value">–</span>
+        </div>
+      </div>
+
+      <div id="slotGrid" class="slots"></div>
+
+      <div class="board__controls">
+        <button id="enterBtn" class="btn btn--primary">Vehicle Enters</button>
+        <p class="hint">Auto-assigns the first free slot (priority encoder logic). Click any slot's LED to simulate it directly.</p>
+      </div>
+    </section>
+
+    <section class="trace" aria-label="Mapping between hardware and software">
+      <h2>Hardware → Software mapping</h2>
+      <dl>
+        <div class="trace__row">
+          <dt>IR Sensors</dt>
+          <dd><code>bool sensor_[N]</code> array, one bit per slot</dd>
+        </div>
+        <div class="trace__row">
+          <dt>74147 Priority Encoder</dt>
+          <dd><code>findFirstFreeSlot()</code> — scans for lowest-index free slot</dd>
+        </div>
+        <div class="trace__row">
+          <dt>LM339 Comparator</dt>
+          <dd><code>isFull()</code> — gates allocation when avail == 0</dd>
+        </div>
+        <div class="trace__row">
+          <dt>7442 Decoder / LEDs</dt>
+          <dd><code>decodeToBitmask()</code> — one-hot slot indicator, driven to this page</dd>
+        </div>
+      </dl>
+    </section>
+
+    <footer class="deck__footer">
+      <span id="lastAssigned">No vehicle assigned yet.</span>
+    </footer>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
